@@ -4,10 +4,21 @@
  *******************************************/
 
 const express = require("express");
+let mongoose = require("mongoose");
+
 const app = express();
-let mongoose;
+require("dotenv").config();
+
+async function connectDB() {
+  const URI = process.env.MONGO_URI;
+  await mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
+
 try {
-  mongoose = require("mongoose");
+  connectDB();
 } catch (e) {
   console.log(e);
 }
